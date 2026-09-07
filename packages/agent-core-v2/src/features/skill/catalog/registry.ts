@@ -9,7 +9,7 @@ import type {
 } from './types';
 import { isInlineSkillType, normalizeSkillName } from './types';
 
-const LISTING_DESC_MAX = 250;
+const LISTING_DESC_MAX = 512;
 
 export class SkillNotFoundError extends Error {
   readonly skillName: string;

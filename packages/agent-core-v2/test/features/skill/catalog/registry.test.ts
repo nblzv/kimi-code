@@ -140,27 +140,27 @@ describe('InMemorySkillCatalog model skill listing', () => {
     expect(registry.getModelSkillListing()).toBe('');
   });
 
-  it('keeps descriptions at or below the 250-character limit unchanged', () => {
-    const description = 'a'.repeat(250);
+  it('keeps descriptions at or below the 512-character limit unchanged', () => {
+    const description = 'a'.repeat(512);
     const rendered = makeRegistry([makeSkill('demo', 'user', description)]).getModelSkillListing();
 
     expect(rendered).toContain(`- demo: ${description}`);
     expect(rendered).not.toContain('...');
   });
 
-  it('truncates long descriptions within the 250-character limit', () => {
-    const description = 'a'.repeat(300);
+  it('truncates long descriptions within the 512-character limit', () => {
+    const description = 'a'.repeat(600);
     const rendered = makeRegistry([makeSkill('demo', 'user', description)]).getModelSkillListing();
 
-    expect(rendered).toContain(`- demo: ${'a'.repeat(247)}...`);
-    expect(rendered).not.toContain('a'.repeat(250));
+    expect(rendered).toContain(`- demo: ${'a'.repeat(509)}...`);
+    expect(rendered).not.toContain('a'.repeat(512));
   });
 
   it('does not split a grapheme cluster at the truncation boundary', () => {
-    const description = `${'a'.repeat(248)}😀${'b'.repeat(100)}`;
+    const description = `${'a'.repeat(510)}😀${'b'.repeat(100)}`;
     const rendered = makeRegistry([makeSkill('demo', 'user', description)]).getModelSkillListing();
 
-    expect(rendered).toContain(`- demo: ${'a'.repeat(247)}...`);
+    expect(rendered).toContain(`- demo: ${'a'.repeat(509)}...`);
     expect(rendered).not.toContain('😀');
     expect(rendered).not.toMatch(
       /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/,
