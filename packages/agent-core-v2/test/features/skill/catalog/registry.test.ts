@@ -120,7 +120,6 @@ describe('InMemorySkillCatalog model skill listing', () => {
 
     const rendered = registry.getModelSkillListing();
 
-    expect(rendered).toContain('DISREGARD any earlier skill listings');
     expect(rendered).toContain('- review: Review code');
     expect(rendered).toContain('  When to use: When reviewing changes.');
     expect(rendered).toContain('  Path: /tmp/user/review/SKILL.md');
